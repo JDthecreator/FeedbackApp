@@ -17,6 +17,22 @@ const surveyJson = {
       type: "text",
       isRequired: true,
     },
+    {
+        name: "feeback",
+        title: "Please provide your feedback:",
+        type: "text",
+        isRequired: true,
+    },
+    {
+        name: "rating",
+        title: "Rating",
+        type: "rating",
+        isRequired: true,
+        scaleColorMode: "colored",
+        rateCount: 10,
+        rateMax: 10,
+        displayMode:"buttons"
+      },
   ],
 };
 
@@ -29,12 +45,15 @@ const FeedbackForm = () => {
     console.log("Form data submitted:", data);
 
     // Send the data to the FastAPI backend
-    fetch("http://127.0.0.1:8000/submit-feedback/", {
+    fetch("http://localhost:8000/submit-feedback/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        feedback: "Great app!",
+        rating: 5,
+      }),
     })
       .then((response) => response.json())
       .then((result) => {
